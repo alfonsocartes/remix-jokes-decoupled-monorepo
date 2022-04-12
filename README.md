@@ -41,3 +41,9 @@ Please go to each folder and read the README.
 ### This IS a monorepo.
 
 This project is a monorepo built with npm workspaces.
+
+You can also take a look at the [multirepo project](https://github.com/alfonsocartes/remix-jokes-decoupled-multirepo)
+
+#### TODO
+
+- GitHub Actions for remix-jokes-backend have not been tested since it's now a monorepo.
