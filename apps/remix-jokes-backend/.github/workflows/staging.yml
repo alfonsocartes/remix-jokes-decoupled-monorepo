@@ -1,0 +1,122 @@
+name: 🚀 Deploy
+on:
+  push:
+    branches:
+      - staging
+  pull_request:
+    branches:
+      - staging
+
+jobs:
+  lint:
+    name: 🔬 ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: 📥 Download deps
+        uses: bahmutov/npm-install@v1
+
+      - name: 🔬 Lint
+        run: npm run lint
+
+  typecheck:
+    name: ʦ TypeScript
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: 📥 Download deps
+        uses: bahmutov/npm-install@v1
+
+      - name: 🔎 Type check
+        run: npm run typecheck --if-present
+
+  build:
+    name: 🔨 Build
+    # only build/deploy staging branch on push (and closed merge request)
+    if: ${{ github.ref == 'refs/heads/staging' && github.event_name == 'push' }}
+    runs-on: ubuntu-latest
+    needs: [lint, typecheck]
+    env:
+      PORT: 5001
+      AUTHPORT: 6000
+      # DATABASE_URL_STAGING ENV is set up in GitHub secrets for actions
+      DATABASE_URL: ${{ secrets.DATABASE_URL_STAGING }}
+    steps:
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: 📥 Download deps
+        uses: bahmutov/npm-install@v1
+
+      - name: 🔧 Build
+        run: npm run build
+
+  deploy:
+    name:
+      🚀 Deploy
+      # only build/deploy staging branch on push (and closed merge request)
+    if: ${{ github.ref == 'refs/heads/staging' && github.event_name == 'push' }}
+    runs-on: ubuntu-latest
+    needs: [lint, typecheck, build]
+    steps:
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Generate deployment package
+        run: zip -r deploy.zip . -x '*.git*'
+
+      - name: 🚀 Deploy Staging to AWS Elastic Beanstalk
+        if: ${{ github.ref == 'refs/heads/staging' }}
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          # Set this in github actions secrets
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          # Set this in github actions secrets
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          # Change:
+          application_name: remix-jokes-backend-staging
+          # Change:
+          environment_name: remix-jokes-backend-staging-env
+          # Change:
+          region: eu-west-1
+          version_label: ${{ github.run_number }}
+          deployment_package: deploy.zip
+
+      - name: Deployed!
+        run: echo "Deployed Staging to AWS Elastic Beanstalk 🚀🚀🚀"

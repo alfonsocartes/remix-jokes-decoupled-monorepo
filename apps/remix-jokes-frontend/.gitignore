@@ -1,0 +1,8 @@
+node_modules
+.DS_Store
+.env
+/.cache
+/build
+/public/build
+/backup
+/app/styles/tailwind-output.css

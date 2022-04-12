@@ -1,0 +1,10 @@
+secrets.txt
+.env
+.DS_Store
+node_modules/
+dist
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+src/__tests__/prodtest.rest

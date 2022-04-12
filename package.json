@@ -1,0 +1,19 @@
+{
+  "name": "remix-jokes-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=16.14.0 <17.0.0"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "dev": "npm run quit && npm run dev --workspace=remix-jokes-backend & npm run dev --workspace=remix-jokes-frontend",
+    "quit": "npm run quit:dev --if-present",
+    "validate": "npm run validate --workspaces",
+    "clean": "rm -rf node_modules && npm run clean --workspaces"
+  }
+}

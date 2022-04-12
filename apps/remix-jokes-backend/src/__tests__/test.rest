@@ -1,0 +1,54 @@
+###
+GET http://localhost:5001/
+
+###
+GET http://localhost:5001/jokes
+
+
+###
+POST http://localhost:5001/auth/register
+Content-Type: application/json    
+
+{
+    "username": "ignacio",
+    "password": "password"
+}
+
+###
+POST http://localhost:5001/auth/login
+Content-Type: application/json    
+
+{
+    "username": "ignacio",
+    "password": "password"
+}
+
+###
+POST http://localhost:5001/auth/token
+Content-Type: application/json    
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlNTA1MmY0YS1iODM4LTQ5NGUtODcwMS0wZjlkYTJjYmJlZGMiLCJpYXQiOjE2NDQ4MjYxNzksImV4cCI6MTY3NjM4Mzc3OSwiYXVkIjoiZTUwNTJmNGEtYjgzOC00OTRlLTg3MDEtMGY5ZGEyY2JiZWRjIiwiaXNzIjoiW0FQUE5BTUUsIERPTUFJTiwgLi4uXSJ9.DzemilSyyj8cnS94nVkiaoL34-JLeKe7YGqKlheONwU"
+}
+
+
+###
+DELETE http://localhost:5001/auth/logout
+Content-Type: application/json    
+
+{
+   "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlNTA1MmY0YS1iODM4LTQ5NGUtODcwMS0wZjlkYTJjYmJlZGMiLCJpYXQiOjE2NDQ4MjYxNzksImV4cCI6MTY3NjM4Mzc3OSwiYXVkIjoiZTUwNTJmNGEtYjgzOC00OTRlLTg3MDEtMGY5ZGEyY2JiZWRjIiwiaXNzIjoiW0FQUE5BTUUsIERPTUFJTiwgLi4uXSJ9.DzemilSyyj8cnS94nVkiaoL34-JLeKe7YGqKlheONwU"
+}
+
+
+### Protected route
+GET http://localhost:5001/auth/test
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4Mzg3Njc2Yy02NTkxLTQ4MzAtOGEzZC1kODRmYTI2ZmI5YTAiLCJpYXQiOjE2NDU4NjgxMDYsImV4cCI6MTY0NTg2OTkwNiwiYXVkIjoiODM4NzY3NmMtNjU5MS00ODMwLThhM2QtZDg0ZmEyNmZiOWEwIiwiaXNzIjoiW0FQUE5BTUUsIERPTUFJTiwgLi4uXSJ9.oyf-21KlYhdKsXJLcv3DjZgQv-j7C9I7_AWQlt_DqS0
+
+
+
+
+###
+GET http://localhost:5001/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4Mzg3Njc2Yy02NTkxLTQ4MzAtOGEzZC1kODRmYTI2ZmI5YTAiLCJpYXQiOjE2NDU4NjgxMDYsImV4cCI6MTY0NTg2OTkwNiwiYXVkIjoiODM4NzY3NmMtNjU5MS00ODMwLThhM2QtZDg0ZmEyNmZiOWEwIiwiaXNzIjoiW0FQUE5BTUUsIERPTUFJTiwgLi4uXSJ9.oyf-21KlYhdKsXJLcv3DjZgQv-j7C9I7_AWQlt_DqS0
+
