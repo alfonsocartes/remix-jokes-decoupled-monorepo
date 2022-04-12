@@ -1,10 +1,11 @@
-import { LoaderFunction, ActionFunction, MetaFunction, json } from "remix";
+import type { LoaderFunction, ActionFunction, MetaFunction } from "remix";
+import { json } from "remix";
 import { useLoaderData, useCatch, useParams } from "remix";
 import { JokeDisplay } from "~/components/joke";
 import { getUser } from "~/models/user.server";
 import { deleteJoke, getJoke } from "~/models/jokes.server";
-import { Joke } from "~/prisma";
 import authenticated from "~/auth/authenticated.server";
+import type { Joke } from "@prisma/client";
 
 type LoaderData = { joke: Joke; isOwner: boolean };
 

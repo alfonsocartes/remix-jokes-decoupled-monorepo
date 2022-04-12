@@ -1,5 +1,5 @@
+import type { User } from "@prisma/client";
 import { getAccessToken } from "~/auth/jwt.server";
-import { User } from "~/prisma";
 
 export async function getUser(request: Request): Promise<User | null> {
   const accessToken = await getAccessToken(request);

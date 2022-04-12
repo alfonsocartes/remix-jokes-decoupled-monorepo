@@ -1,7 +1,7 @@
+import type { Joke } from "@prisma/client";
 import { redirect } from "remix";
 import { getAccessToken } from "~/auth/jwt.server";
 import { logout } from "~/auth/session.server";
-import { Joke } from "~/prisma";
 
 export interface CreateJokeInputData {
   name: string;

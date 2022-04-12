@@ -1,5 +1,5 @@
+import type { Joke } from "@prisma/client";
 import { Link, Form } from "remix";
-import { Joke } from "~/prisma";
 
 export function JokeDisplay({
   joke,

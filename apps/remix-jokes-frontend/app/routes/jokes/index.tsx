@@ -1,7 +1,8 @@
-import { json, LoaderFunction } from "remix";
+import type { Joke } from "@prisma/client";
+import type { LoaderFunction } from "remix";
+import { json } from "remix";
 import { useLoaderData, Link, useCatch } from "remix";
 import { getRandomJoke } from "~/models/jokes.server";
-import { Joke } from "~/prisma";
 
 type LoaderData = { randomJoke: Joke | undefined };
 

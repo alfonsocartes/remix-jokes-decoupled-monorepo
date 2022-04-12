@@ -1,17 +1,10 @@
-import {
-  Form,
-  json,
-  Link,
-  LinksFunction,
-  LoaderFunction,
-  Outlet,
-  useLoaderData,
-} from "remix";
+import type { LinksFunction, LoaderFunction } from "remix";
+import { Form, json, Link, Outlet, useLoaderData } from "remix";
 import stylesUrl from "../styles/jokes.css";
 import { getUser } from "~/models/user.server";
 import { getAllJokes } from "~/models/jokes.server";
-import { Joke, User } from "~/prisma";
 import authenticated from "~/auth/authenticated.server";
+import type { Joke, User } from "@prisma/client";
 
 export const links: LinksFunction = () => {
   return [
